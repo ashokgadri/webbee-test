@@ -188,6 +188,8 @@ class EventsController extends BaseController
      */
 
     public function getFutureEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 2');
+        //throw new \Exception('implement in coding task 2');
+        $events = $this->repository->getFutureEventsWithWorkshops();
+        return response()->json(EventResource::collection($events));
     }
 }
