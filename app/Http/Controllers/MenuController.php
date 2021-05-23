@@ -3,11 +3,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuItemResource;
 use App\Models\MenuItem;
+use App\Repositories\Menu\MenuItemRepository;
 use Illuminate\Routing\Controller as BaseController;
 
 class MenuController extends BaseController
 {
+    protected $repository;
+
+    public function __construct(MenuItemRepository $menuItemRepository)
+    {
+        $this->repository = $menuItemRepository;
+    }
+
     /*
     Requirements:
     - the eloquent expressions should result in EXACTLY one SQL query no matter the nesting level or the amount of menu items.
@@ -95,6 +104,8 @@ class MenuController extends BaseController
      */
 
     public function getMenuItems() {
-        throw new \Exception('implement in coding task 3');
+        //throw new \Exception('implement in coding task 3');
+        $menuItems = $this->repository->getMenuItems();
+        return response()->json(MenuItemResource::collection($menuItems));
     }
 }
